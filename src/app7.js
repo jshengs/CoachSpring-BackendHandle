@@ -1,7 +1,12 @@
 import {initializeApp} from 'firebase/app'
 import {
     getFirestore, collection, getDocs,
-    addDoc, deleteDoc, doc
+    addDoc, deleteDoc, doc, //add & delete
+    query, where, //query eg. WHERE
+    onSnapshot,
+    serverTimestamp,orderBy
+    
+
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -24,18 +29,33 @@ const firebaseConfig = {
   const colRef = collection(db, 'books')
 
 
+  //query
+  const q = query(colRef, orderBy('createdAt')); //by default is ascending order
+ // const q = query(colRef, where("author", "==", "Sam Sammy"), orderBy('createdAt')); //by default is ascending order
+
   //get collection data
-  getDocs(colRef)
-  .then((snapshot) => {
+  //Without query
+  // getDocs(colRef)
+  // .then((snapshot) => {
+  //   let books = []
+  //   snapshot.docs.forEach((doc)=>{
+  //     books.push({...doc.data(), id: doc.id})
+  //   })
+  //   console.log(books)
+  // })
+  // .catch(err =>{
+  //   console.log(err.message)
+  // })
+
+  //With query 
+  onSnapshot(q,(snapshot) => {
     let books = []
     snapshot.docs.forEach((doc)=>{
       books.push({...doc.data(), id: doc.id})
     })
     console.log(books)
   })
-  .catch(err =>{
-    console.log(err.message)
-  })
+  
 
   // Adding documents
   const addBookForm = document.querySelector('.add');
@@ -45,6 +65,7 @@ const firebaseConfig = {
     addDoc(colRef, {
       title: addBookForm.title.value,
       author: addBookForm.author.value,
+      createdAt: serverTimestamp()
     })
     .then(() => {
       addBookForm.reset()
@@ -61,4 +82,4 @@ const firebaseConfig = {
     .then(()=> {
       deleteBookForm.reset();
     })
-  })
+  }) 
