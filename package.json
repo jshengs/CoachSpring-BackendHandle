@@ -1,17 +1,24 @@
 {
   "name": "coachspring-backendhandle",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "nodemon index.js"
+    "test": "nodemon index.js",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "canvas": "^2.11.0",
     "express": "^4.18.2",
+    "firebase": "^10.7.1",
     "nodemon": "^3.0.3"
-  }
+  },
+  "devDependencies": {
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "keywords": [],
+  "description": ""
 }

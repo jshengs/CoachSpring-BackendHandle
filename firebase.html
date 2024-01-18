@@ -1,0 +1,32 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase 9</title>
+</head>
+<body>
+    <h1>Getting started with Firebase 9</h1>
+
+    <h2>Firebase Firestore</h2>
+
+    <!-- Add -->
+    <form class="add">
+        <label>Title:</label>
+        <input type="text" name="title" required>
+        <label>Author:</label>
+        <input type="text" name="author" required>
+
+        <button>Add a new book</button>
+    </form>
+
+    <!-- Delete -->
+    <form class="delete">  
+        <label>Document ID:</label>
+        <input type="text" name="id" required>
+
+        <button>Delete a book</button>
+    </form>
+
+    <script src="dist/bundle.js"></script>
+</body>
+</html>

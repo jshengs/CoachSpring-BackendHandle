@@ -1,43 +1,25 @@
-const { createCanvas, loadImage } = require('canvas')
-const canvas = createCanvas(710, 1064)
-const ctx = canvas.getContext('2d')
-const fs = require("fs")
-// var express = require('express');
-// var app = express();
+const generateImg = require("./src/index")
+const express = require("express");
+const fs = require("fs");
+const app = express();
 
-async function Main(){
-    let cloudImg = await loadImage('uploads/cloud.png');
-    ctx.drawImage(cloudImg , 0, 0,);
+const port = 8080; // Specify the port number
 
-    let logoImg = await loadImage('uploads/logo.png');
-    ctx.drawImage(logoImg , 230, 15);
+app.listen(port, () => {
+    console.log("Server is listening on port: " + port);
+});
 
-    let tagImg = await loadImage('uploads/tag.png');
-    ctx.drawImage(tagImg , 0, 440,  710, 523);
 
-    ctx.font = "bold 160px 'Helvetica LT Pro Bold'";
-    ctx.fillStyle = "white";
+app.get("/", async(req, res) => {
+    const {name} = req.query;
 
-    ctx.fillText('JOHN', 80, 310);
-    
-    ctx.font = "bold 110px 'Helvetica LT Pro'";
-    ctx.fillText('YOU', 80, 440);
-    ctx.fillText('ARE A', 80, 550);
+    if(name === undefined) res.send("name undifined")
+
+
+    let filename = await generateImg(name)
+
+    let imgBuffer = fs.readFileSync(`./out/${filename}.png`);
 
     
-    let buffer = canvas.toBuffer();
-
-    // Specify the file path where you want to save the PNG file
-    const filePath = 'out/file.png';
-    
-
-    // Write the buffer to a file with synchronous write
-    try {
-        fs.writeFileSync(filePath, buffer);
-        console.log('PNG file written successfully:', filePath);
-        } catch (err) {
-        console.error('Error writing PNG file:', err);
-    }
-}
-
- Main()
+    res.send("ök")
+});
