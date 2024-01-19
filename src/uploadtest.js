@@ -20,12 +20,13 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/uploadtest.html');
 });
+
 app.post('/upload', upload.single('image'), async (req, res) => {
   try {
     const bucket = admin.storage().bucket();
