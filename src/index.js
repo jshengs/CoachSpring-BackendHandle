@@ -1,3 +1,5 @@
+// http://localhost:8080/?name=John
+
 const { createCanvas, loadImage } = require('canvas')
 const canvas = createCanvas(710, 1064)
 const ctx = canvas.getContext('2d')
