@@ -24,8 +24,6 @@ const firebaseConfig = {
   firebase.initializeApp(firebaseConfig);
   const storage = getStorage();
 
-
-
 app.get("/", (req, res)=>{
     res.send("Firebase Storage")
 });
