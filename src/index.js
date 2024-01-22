@@ -33,7 +33,6 @@ async function Main(name = "JOHN"){
     let fileName = name + Date.now();
     const filePath = `out/${fileName}.png`;
     
-
     // Write the buffer to a file with synchronous write
     try {
         fs.writeFileSync(filePath, buffer);
