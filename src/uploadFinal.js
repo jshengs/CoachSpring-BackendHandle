@@ -4,6 +4,8 @@ const app = express();
 const multer = require("multer");
 const upload = multer({storage: multer.memoryStorage()});
 
+//upload using url
+const axios = require("axios");
 
 const firebase = require("firebase/app");
 const {getStorage, ref, uploadBytes} = require("firebase/storage");
@@ -25,8 +27,9 @@ const firebaseConfig = {
   const storage = getStorage();
 
 app.get("/", (req, res)=>{
-    res.send("Firebase Storage")
+    res.send("<h1 style='color:blue'>Upload Image to Firebase Storage</h1>")
 });
+
 
 // Route for handling File Upload: using POST
 //Upload One file at once
@@ -38,6 +41,8 @@ app.get("/", (req, res)=>{
 //     });
 //     console.log(req.file);
 // });
+
+
 
 // Upload multiple files at once: Use upload.array
 app.post("/", upload.array("filename"), async (req, res) => {
@@ -61,6 +66,29 @@ app.post("/", upload.array("filename"), async (req, res) => {
       res.status(500).send("Internal Server Error");
     }
   });
+
+
+
+
+
+  //upload using url
+  // app.post("/uploadUrl", async (req, res) => {
+  //   const { url, filename } = req.body;
+
+  //   try {
+  //     const response = await axios.get(url, { responseType: 'arraybuffer' });
+  //     const buffer = Buffer.from(response.data, 'binary');
+  
+  //     const storageRef = ref(storage, filename);
+  //     const snapshot = await uploadBytes(storageRef, buffer);
+  
+  //     console.log(`File ${filename} uploaded successfully from URL.`);
+  //     res.status(200).send("File Uploaded Successfully from URL");
+  //   } catch (error) {
+  //     console.error("Error uploading file from URL:", error);
+  //     res.status(500).send("Internal Server Error");
+  //   }
+  // });
 
 //Host to PORT 3000
 app.listen(3000);
