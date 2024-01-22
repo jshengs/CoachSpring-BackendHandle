@@ -5,7 +5,7 @@ const multer = require("multer");
 const upload = multer({storage: multer.memoryStorage()});
 
 //upload using url
-const axios = require("axios");
+// const axios = require("axios");
 
 const firebase = require("firebase/app");
 const {getStorage, ref, uploadBytes} = require("firebase/storage");
