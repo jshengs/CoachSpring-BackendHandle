@@ -1,11 +1,7 @@
-// http://localhost:8080/?name=John
-
 const { createCanvas, loadImage } = require('canvas')
 const canvas = createCanvas(710, 1064)
 const ctx = canvas.getContext('2d')
 const fs = require("fs")
-// var express = require('express');
-// var app = express();
 
 async function Main(name = "JOHN"){
     let cloudImg = await loadImage('uploads/cloud.png');
@@ -26,14 +22,11 @@ async function Main(name = "JOHN"){
     ctx.fillText('YOU', 80, 440);
     ctx.fillText('ARE A', 80, 550);
 
-    
     let buffer = canvas.toBuffer();
 
-    // Specify the file path where you want to save the PNG file
     let fileName = name + Date.now();
     const filePath = `out/${fileName}.png`;
     
-    // Write the buffer to a file with synchronous write
     try {
         fs.writeFileSync(filePath, buffer);
         console.log('PNG file written successfully:', filePath);
