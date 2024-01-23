@@ -3,7 +3,7 @@ const canvas = createCanvas(710, 1064)
 const ctx = canvas.getContext('2d')
 const fs = require("fs")
 
-async function Main(name = "JOHN"){
+async function Main(name){
     let cloudImg = await loadImage('uploads/cloud.png');
     ctx.drawImage(cloudImg , 0, 0,);
 
