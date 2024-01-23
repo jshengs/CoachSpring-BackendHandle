@@ -1,3 +1,9 @@
+// Controller: 
+// To define routes for creating, updating, deleting, 
+// and retrieving tasks. Use decorators like “@Get,” “@Post,” “@Put,” 
+// and “@Delete” to specify the HTTP methods and paths.
+
+
 import { Controller, Get, Param, Query, Body, Post } from '@nestjs/common';
 import { TestService } from './test.service';
 import { CreateTestDto } from './dto/create-test.dto';
