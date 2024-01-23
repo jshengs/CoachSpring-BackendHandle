@@ -20,6 +20,5 @@ app.get("/", async(req, res) => {
 
     let imgBuffer = fs.readFileSync(`./out/${filename}.png`);
 
-    
     res.send("ök")
 });
