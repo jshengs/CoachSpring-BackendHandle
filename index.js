@@ -2,9 +2,14 @@ const generateImg = require("./src/index");
 const express = require("express");
 const fs = require("fs").promises;
 const { Storage } = require("@google-cloud/storage");
+var cors = require('cors')
 
 const app = express();
+app.use(cors())
+
 const port = 1234;
+
+
 
 const storage = new Storage({
   projectId: "nodejs1-7a602your-project-id",
