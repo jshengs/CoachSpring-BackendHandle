@@ -46,7 +46,7 @@ async function Main(name, color) {
 
   ctx.font = "bold 160px 'Helvetica LT Pro Bold'";
   ctx.fillStyle = 'white';
-  ctx.fillText(name, 75, 280);
+  ctx.fillText(name, 75, 300);
 
   ctx.font = "bold 100px 'Helvetica LT Pro Bold'";
   ctx.fillText('YOU', 75, 420);
