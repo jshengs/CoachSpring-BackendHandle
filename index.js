@@ -58,7 +58,9 @@ app.get("/", async (req, res) => {
           destination: "test.png",
         });   console.log("File downloaded to:", "test.png");
     
-        res.send("Image URL:" + downloadUrl);
+        res.send({
+          url : downloadUrl
+        });
   }
   catch(e){
     console.error("Error:", e);
