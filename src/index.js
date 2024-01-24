@@ -1,40 +1,58 @@
-const { createCanvas, loadImage } = require('canvas')
-const canvas = createCanvas(710, 1064)
-const ctx = canvas.getContext('2d')
-const fs = require("fs")
+const { createCanvas, loadImage } = require('canvas');
+const canvas = createCanvas(710, 1064);
+const ctx = canvas.getContext('2d');
 
-async function Main(name){
-    let cloudImg = await loadImage('uploads/cloud.png');
-    ctx.drawImage(cloudImg , 0, 0,);
+let cloudImg, logoImg, tagImg;
 
-    let logoImg = await loadImage('uploads/logo.png');
-    ctx.drawImage(logoImg , 230, 15);
+async function loadAssets(color) {
+  cloudImg = await loadImage('uploads/cloud.png');
+  logoImg = await loadImage('uploads/logo.png');
 
-    let tagImg = await loadImage('uploads/tag.png');
-    ctx.drawImage(tagImg , 0, 440,  710, 523);
+  switch (color) {
+    case "purple":
+      tagImg = await loadImage('uploads/01_visionary.png');
+      break;
 
-    ctx.font = "bold 160px 'Helvetica LT Pro Bold'";
-    ctx.fillStyle = "white";
+    case "brown":
+      tagImg = await loadImage('uploads/02_explorer.png');
+      break;
 
-    ctx.fillText(name, 80, 310);
-    
-    ctx.font = "bold 110px 'Helvetica LT Pro Bold'";
-    ctx.fillText('YOU', 80, 440);
-    ctx.fillText('ARE A', 80, 550);
+    case "black":
+      tagImg = await loadImage('uploads/03_activist.png');
+      break;
 
-    let buffer = canvas.toBuffer();
-
-    let fileName = name + Date.now();
-    const filePath = `out/${fileName}.png`;
-    
-    try {
-        fs.writeFileSync(filePath, buffer);
-        console.log('PNG file written successfully:', filePath);
-        
-        return fileName
-    } catch (err) {
-        console.error('Error writing PNG file:', err);
-    }
+    case "yellow":
+      tagImg = await loadImage('uploads/04_creative.png');
+      break;
+      
+    case "grey":
+      tagImg = await loadImage('uploads/05_lover.png');
+      break;
+    default:
+      tagImg = await loadImage('uploads/04_creative.png');
+  }
 }
 
-module.exports = Main
+async function Main(name, color) {
+  await loadAssets(color);
+
+  if (cloudImg === undefined || logoImg === undefined || tagImg === undefined) {
+    throw new Error('Failed to load images.');
+  }
+
+  ctx.drawImage(cloudImg, 0, 0);
+  ctx.drawImage(logoImg, 230, 15);
+  ctx.drawImage(tagImg, 0, 440, 710, 523);
+
+  ctx.font = "bold 160px 'Helvetica LT Pro Bold'";
+  ctx.fillStyle = 'white';
+  ctx.fillText(name, 75, 280);
+
+  ctx.font = "bold 100px 'Helvetica LT Pro Bold'";
+  ctx.fillText('YOU', 75, 420);
+  ctx.fillText('ARE A', 75, 520);
+
+  return canvas.toBuffer();
+}
+
+module.exports = Main;

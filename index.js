@@ -1,6 +1,6 @@
 const generateImg = require("./src/index");
 const express = require("express");
-const fs = require("fs");
+const fs = require("fs").promises;
 const { Storage } = require("@google-cloud/storage");
 
 const app = express();
@@ -18,48 +18,76 @@ app.listen(port, () => {
 });
 
 app.get("/", async (req, res) => {
-  const { name } = req.query;
+  const { name, color } = req.query;
 
-  if (name === undefined) {
-    res.send("Name Undefined");
+
+  if (name === undefined || color === undefined) {
+    res.send("Name and/or Color Undefined");
     return;
   }
 
   try {
-    let filename = await generateImg(name);
+    // const filename = await generateImg(name);
+    // const localFilePath = `./out/${filename}.png`;
+    // const imgBuffer = await fs.readFile(localFilePath);
 
-    let imgBuffer = fs.readFileSync(`./out/${filename}.png`);
+    const timestamp = Date.now();
+    const filename = `coach-spring-img/${name}_${timestamp}`;
+    const imgBuffer = await generateImg(name, color);
 
     const file = storage.bucket(bucketName).file(`${filename}.png`);
-    const stream = file.createWriteStream({
+    let ress = await file.save(imgBuffer, {
       metadata: {
         contentType: "image/png",
       },
     });
 
-    stream.on("error", (err) => {
-      console.error("Error uploading to Firebase Storage:", err);
-      res.status(500).send("Error uploading to Firebase Storage");
-    });
 
-    stream.on("finish", async () => {
-      const downloadUrl = await getDownloadUrl(filename);
-      console.log("Image URL:", downloadUrl);
-      res.send("Image URL:" + downloadUrl);
-    });
 
-    stream.end(imgBuffer);
-  } catch (error) {
-    console.error("Error in route handler:", error);
+
+    //Image save to firebase only
+    // const downloadUrl = await getDownloadUrl(filename, timestamp);
+    //     console.log("Image URL:", downloadUrl);
+    //     res.send("Image URL:" + downloadUrl);
+
+
+        const downloadUrl = await getDownloadUrl(filename, timestamp);
+        // console.log("Image URL:", downloadUrl);
+        // const localFilePath = `./out/${filename}.png`; // Specify the local path
+        await file.download({
+          destination: "test.png",
+        });   console.log("File downloaded to:", "test.png");
+    
+        res.send("Image URL:" + downloadUrl);
+  }
+  catch(e){
+    console.error("Error:", e);
     res.status(500).send("Internal Server Error");
   }
+//     let filename = name;
+
+//     const file = storage.bucket(bucketName).file(`${filename}.png`);
+
+//     await file.save(imgBuffer, {
+//       metadata: {
+//         contentType: "image/png",
+//       },
+//     });
+
+//     const downloadUrl = await getDownloadUrl(filename);
+//     console.log("Image URL:", downloadUrl);
+//     res.send("Image URL:" + downloadUrl);
+//   } catch (error) {
+//     console.error("Error:", error);
+//     res.status(500).send("Internal Server Error");
+//   }
 });
 
-async function getDownloadUrl(filename) {
+async function getDownloadUrl(filename, timestamp) {
   const file = storage.bucket(bucketName).file(`${filename}.png`);
   const [url] = await file.getSignedUrl({
     action: "read",
-    expires: Date.now() + 604800000,
+    expires: timestamp + 604800000,
   });
   return url;
 }
