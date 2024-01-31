@@ -41,16 +41,19 @@ async function Main(name, color) {
   }
 
   ctx.drawImage(cloudImg, 0, 0);
-  ctx.drawImage(logoImg, 225, 25);
+  ctx.drawImage(logoImg, 225, 45);
   ctx.drawImage(tagImg, canvas.width * 0.5 -710 * 0.8 * 0.5 , canvas.height * 0.7 -523 * 0.8 * 0.5, 710 * 0.8, 523 * 0.8);
 
   ctx.font = "bold 115px 'Helvetica LT Pro Bold'";
   ctx.fillStyle = 'white';
-  ctx.fillText(name, 30, 260);
 
+  let fontHeight = 110;
+  let base = 270
+
+  ctx.fillText(name, 30, base);
   ctx.font = "bold 115px 'Helvetica LT Pro Bold'";
-  ctx.fillText('YOU', 30, 390);
-  ctx.fillText('ARE A', 30, 520);
+  ctx.fillText('YOU', 30, base + fontHeight);
+  ctx.fillText('ARE A', 30, base + fontHeight * 2);
 
   return canvas.toBuffer();
 }
