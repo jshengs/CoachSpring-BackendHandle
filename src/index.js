@@ -46,11 +46,11 @@ async function Main(name, color) {
 
   ctx.font = "bold 115px 'Helvetica LT Pro Bold'";
   ctx.fillStyle = 'white';
-  ctx.fillText(name, 30, 270);
+  ctx.fillText(name, 30, 260);
 
   ctx.font = "bold 115px 'Helvetica LT Pro Bold'";
   ctx.fillText('YOU', 30, 390);
-  ctx.fillText('ARE A', 30, 510);
+  ctx.fillText('ARE A', 30, 520);
 
   return canvas.toBuffer();
 }
