@@ -1,7 +1,7 @@
 const { createCanvas, loadImage } = require('canvas');
 const canvas = createCanvas(710, 1064);
 const ctx = canvas.getContext('2d');
-
+const fs = require("fs")
 let cloudImg, logoImg, tagImg;
 
 async function loadAssets(color) {
@@ -41,18 +41,25 @@ async function Main(name, color) {
   }
 
   ctx.drawImage(cloudImg, 0, 0);
-  ctx.drawImage(logoImg, 225, 20);
-  ctx.drawImage(tagImg, 0, 440, 710, 523);
+  ctx.drawImage(logoImg, 225, 25);
+  ctx.drawImage(tagImg, canvas.width * 0.5 -710 * 0.8 * 0.5 , canvas.height * 0.7 -523 * 0.8 * 0.5, 710 * 0.8, 523 * 0.8);
 
-  ctx.font = "bold 160px 'Helvetica LT Pro Bold'";
+  ctx.font = "bold 115px 'Helvetica LT Pro Bold'";
   ctx.fillStyle = 'white';
-  ctx.fillText(name, 75, 300);
+  ctx.fillText(name, 30, 270);
 
-  ctx.font = "bold 100px 'Helvetica LT Pro Bold'";
-  ctx.fillText('YOU', 75, 420);
-  ctx.fillText('ARE A', 75, 520);
+  ctx.font = "bold 115px 'Helvetica LT Pro Bold'";
+  ctx.fillText('YOU', 30, 390);
+  ctx.fillText('ARE A', 30, 510);
 
   return canvas.toBuffer();
 }
+
+// async function debug(){
+//   let  _ = await Main("MATTHEW" , "black");
+//   fs.writeFile("test.png" , _)
+// }
+
+// debug()
 
 module.exports = Main;
