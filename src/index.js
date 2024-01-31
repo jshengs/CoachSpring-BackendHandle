@@ -5,7 +5,7 @@ const ctx = canvas.getContext('2d');
 let cloudImg, logoImg, tagImg;
 
 async function loadAssets(color) {
-  cloudImg = await loadImage('uploads/cloud.png');
+  cloudImg = await loadImage('uploads/cloudFinal.jpg');
   logoImg = await loadImage('uploads/logo.png');
 
   switch (color) {
@@ -41,7 +41,7 @@ async function Main(name, color) {
   }
 
   ctx.drawImage(cloudImg, 0, 0);
-  ctx.drawImage(logoImg, 225, 15);
+  ctx.drawImage(logoImg, 225, 20);
   ctx.drawImage(tagImg, 0, 440, 710, 523);
 
   ctx.font = "bold 160px 'Helvetica LT Pro Bold'";
