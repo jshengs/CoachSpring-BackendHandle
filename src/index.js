@@ -13,6 +13,7 @@ async function loadAssets(color) {
       tagImg = await loadImage("uploads/01_visionary.png");
       break;
 
+    
     case "brown":
       tagImg = await loadImage("uploads/02_explorer.png");
       break;

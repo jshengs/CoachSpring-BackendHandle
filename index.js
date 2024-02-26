@@ -2,14 +2,16 @@ const generateImg = require("./src/index");
 const express = require("express");
 const fs = require("fs").promises;
 const { Storage } = require("@google-cloud/storage");
-var cors = require('cors')
+var cors = require("cors");
 
 const app = express();
-app.use(cors())
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 const port = 1234;
-
-
 
 const storage = new Storage({
   projectId: "nodejs1-7a602your-project-id",
@@ -24,7 +26,6 @@ app.listen(port, () => {
 
 app.get("/", async (req, res) => {
   const { name, color } = req.query;
-
 
   if (name === undefined || color === undefined) {
     res.send("Name and/or Color Undefined");
@@ -47,47 +48,43 @@ app.get("/", async (req, res) => {
       },
     });
 
-
-
-
     //Image save to firebase only
     // const downloadUrl = await getDownloadUrl(filename, timestamp);
     //     console.log("Image URL:", downloadUrl);
     //     res.send("Image URL:" + downloadUrl);
 
+    const downloadUrl = await getDownloadUrl(filename, timestamp);
+    // console.log("Image URL:", downloadUrl);
+    // const localFilePath = `./out/${filename}.png`; // Specify the local path
+    await file.download({
+      destination: "test.png",
+    });
+    console.log("File downloaded to:", "test.png");
 
-        const downloadUrl = await getDownloadUrl(filename, timestamp);
-        // console.log("Image URL:", downloadUrl);
-        // const localFilePath = `./out/${filename}.png`; // Specify the local path
-        await file.download({
-          destination: "test.png",
-        });   console.log("File downloaded to:", "test.png");
-    
-        res.send({
-          url : downloadUrl
-        });
-  }
-  catch(e){
+    res.send({
+      url: downloadUrl,
+    });
+  } catch (e) {
     console.error("Error:", e);
     res.status(500).send("Internal Server Error");
   }
-//     let filename = name;
+  //     let filename = name;
 
-//     const file = storage.bucket(bucketName).file(`${filename}.png`);
+  //     const file = storage.bucket(bucketName).file(`${filename}.png`);
 
-//     await file.save(imgBuffer, {
-//       metadata: {
-//         contentType: "image/png",
-//       },
-//     });
+  //     await file.save(imgBuffer, {
+  //       metadata: {
+  //         contentType: "image/png",
+  //       },
+  //     });
 
-//     const downloadUrl = await getDownloadUrl(filename);
-//     console.log("Image URL:", downloadUrl);
-//     res.send("Image URL:" + downloadUrl);
-//   } catch (error) {
-//     console.error("Error:", error);
-//     res.status(500).send("Internal Server Error");
-//   }
+  //     const downloadUrl = await getDownloadUrl(filename);
+  //     console.log("Image URL:", downloadUrl);
+  //     res.send("Image URL:" + downloadUrl);
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     res.status(500).send("Internal Server Error");
+  //   }
 });
 
 async function getDownloadUrl(filename, timestamp) {
