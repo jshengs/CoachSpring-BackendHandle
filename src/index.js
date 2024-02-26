@@ -9,24 +9,23 @@ async function loadAssets(color) {
   logoImg = await loadImage("uploads/logo.png");
 
   switch (color) {
-    case "purple":
+    case "purpleVideo":
       tagImg = await loadImage("uploads/01_visionary.png");
       break;
 
-    
-    case "brown":
+    case "denimVideo":
       tagImg = await loadImage("uploads/02_explorer.png");
       break;
 
-    case "black":
+    case "blackVideo":
       tagImg = await loadImage("uploads/03_activist.png");
       break;
 
-    case "yellow":
+    case "yellowVideo":
       tagImg = await loadImage("uploads/04_creative.png");
       break;
 
-    case "grey":
+    case "tyeDyeVideo":
       tagImg = await loadImage("uploads/05_lover.png");
       break;
     default:
