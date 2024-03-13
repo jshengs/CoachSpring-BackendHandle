@@ -59,10 +59,10 @@ async function Main(name, color) {
   let fontHeight = 110;
   let base = 270;
 
-  ctx.fillText(name.toUpperCase(), 30, base);
+  ctx.fillText(name.toUpperCase(), 80, base);
   ctx.font = "bold 100px 'Helvetica LT Pro Bold'";
-  ctx.fillText("YOU", 30, base + fontHeight);
-  ctx.fillText("ARE A", 30, base + fontHeight * 2);
+  ctx.fillText("YOU", 80, base + fontHeight);
+  ctx.fillText("ARE A", 80, base + fontHeight * 2);
 
   return canvas.toBuffer();
 }
