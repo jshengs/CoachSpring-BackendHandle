@@ -42,6 +42,9 @@ async function Main(name, color) {
 
   // ctx.drawImage(cloudImg, 0, 0, 710, 1064);
 
+  // Clear the canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
   const logoX = (canvas.width - logoImg.width) / 2;
   ctx.drawImage(logoImg, logoX, 45);
 
