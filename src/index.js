@@ -35,6 +35,7 @@ async function loadAssets(color) {
 
 async function Main(name, color) {
   await loadAssets(color);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   if (cloudImg === undefined || logoImg === undefined || tagImg === undefined) {
     throw new Error("Failed to load images.");
@@ -43,29 +44,28 @@ async function Main(name, color) {
   // ctx.drawImage(cloudImg, 0, 0, 710, 1064);
 
   // Clear the canvas
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
   
   const logoX = (canvas.width - logoImg.width) / 2;
   ctx.drawImage(logoImg, logoX, 45);
 
   ctx.drawImage(
     tagImg,
-    canvas.width * 0.5 - 675 * 0.8 * 0.5,
-    canvas.height * 0.72 - 503 * 0.8 * 0.5,
-    675 * 0.8,
-    503 * 0.8
+    canvas.width * 0.5 - 675 * 0.9 * 0.5,
+    canvas.height * 0.76 - 503 * 0.9 * 0.5,
+    675 * 0.9,
+    503 * 0.9
   );
 
-  ctx.font = "bold 100px 'Helvetica LT Pro Bold'";
+  ctx.font = "bold 120px 'Helvetica LT Pro Bold'";
   ctx.fillStyle = "white";
 
-  let fontHeight = 110;
+  let fontHeight = 120;
   let base = 300;
 
-  ctx.fillText(name.toUpperCase(), 80, base);
-  ctx.font = "bold 100px 'Helvetica LT Pro Bold'";
-  ctx.fillText("YOU", 80, base + fontHeight);
-  ctx.fillText("ARE A", 80, base + fontHeight * 2);
+  ctx.fillText(name.toUpperCase(), 50, base);
+  ctx.font = "bold 120px 'Helvetica LT Pro Bold'";
+  ctx.fillText("YOU", 50, base + fontHeight);
+  ctx.fillText("ARE A", 50, base + fontHeight * 2);
 
   return canvas.toBuffer();
 }

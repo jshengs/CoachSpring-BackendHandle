@@ -26,7 +26,6 @@ app.listen(port, () => {
 
 app.get("/", async (req, res) => {
   const { name, color } = req.query;
-
   if (name === undefined || color === undefined) {
     res.send("Name and/or Color Undefined");
     return;
@@ -59,7 +58,7 @@ app.get("/", async (req, res) => {
     await file.download({
       destination: "test.png",
     });
-    console.log("File downloaded to:", "test.png");
+    // console.log("File downloaded to:", "test.png");
 
     res.send({
       url: downloadUrl,
@@ -68,23 +67,6 @@ app.get("/", async (req, res) => {
     console.error("Error:", e);
     res.status(500).send("Internal Server Error");
   }
-  //     let filename = name;
-
-  //     const file = storage.bucket(bucketName).file(`${filename}.png`);
-
-  //     await file.save(imgBuffer, {
-  //       metadata: {
-  //         contentType: "image/png",
-  //       },
-  //     });
-
-  //     const downloadUrl = await getDownloadUrl(filename);
-  //     console.log("Image URL:", downloadUrl);
-  //     res.send("Image URL:" + downloadUrl);
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //     res.status(500).send("Internal Server Error");
-  //   }
 });
 
 async function getDownloadUrl(filename, timestamp) {
