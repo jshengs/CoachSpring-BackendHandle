@@ -40,7 +40,7 @@ async function Main(name, color) {
     throw new Error("Failed to load images.");
   }
 
-  ctx.drawImage(cloudImg, 0, 0, 710, 1064);
+  // ctx.drawImage(cloudImg, 0, 0, 710, 1064);
 
   const logoX = (canvas.width - logoImg.width) / 2;
   ctx.drawImage(logoImg, logoX, 45);
@@ -48,7 +48,7 @@ async function Main(name, color) {
   ctx.drawImage(
     tagImg,
     canvas.width * 0.5 - 675 * 0.8 * 0.5,
-    canvas.height * 0.62 - 503 * 0.8 * 0.5,
+    canvas.height * 0.72 - 503 * 0.8 * 0.5,
     675 * 0.8,
     503 * 0.8
   );
@@ -57,7 +57,7 @@ async function Main(name, color) {
   ctx.fillStyle = "white";
 
   let fontHeight = 110;
-  let base = 270;
+  let base = 300;
 
   ctx.fillText(name.toUpperCase(), 80, base);
   ctx.font = "bold 100px 'Helvetica LT Pro Bold'";
