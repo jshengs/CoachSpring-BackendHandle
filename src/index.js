@@ -51,7 +51,7 @@ async function Main(name, color) {
   ctx.drawImage(
     tagImg,
     canvas.width * 0.5 - 675 * 0.9 * 0.5,
-    canvas.height * 0.76 - 503 * 0.9 * 0.5,
+    canvas.height * 0.6 - 503 * 0.9 * 0.5, // ori: 0.76 (change height)
     675 * 0.9,
     503 * 0.9
   );
@@ -62,10 +62,16 @@ async function Main(name, color) {
   let fontHeight = 120;
   let base = 300;
 
-  ctx.fillText(name.toUpperCase(), 50, base);
-  ctx.font = "bold 120px 'Helvetica LT Pro Bold'";
-  ctx.fillText("YOU", 50, base + fontHeight);
-  ctx.fillText("ARE A", 50, base + fontHeight * 2);
+  let textWidth = ctx.measureText("입니다!").width;
+
+  let rightMargin = 50;
+
+  ctx.fillText(name.toUpperCase() + " 님,", 50, base);
+  ctx.fillText("당신은", 50, base + fontHeight);
+
+  let xPosition = canvas.width - textWidth - rightMargin;
+
+  ctx.fillText("입니다!", xPosition, base + fontHeight * 5);
 
   return canvas.toBuffer();
 }
